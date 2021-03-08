@@ -5,7 +5,8 @@
 
 import {
 	createConnection, IConnection, ResponseError, InitializeParams, InitializeResult, InitializeError,
-	Diagnostic, DiagnosticSeverity, Files, TextDocuments, TextDocument, ErrorMessageTracker, IPCMessageReader, IPCMessageWriter, RequestType
+	Diagnostic, DiagnosticSeverity, Files, TextDocuments, TextDocument, ErrorMessageTracker, IPCMessageReader, IPCMessageWriter, RequestType,
+	ProposedFeatures
 } from 'vscode-languageserver';
 
 import fs = require('fs');
@@ -360,7 +361,7 @@ class Linter {
 	private packageManager: string;
 
 	constructor() {
-		this.connection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
+		this.connection = createConnection(ProposedFeatures.all);
 		this.options = new OptionsResolver(this.connection);
 		this.fileMatcher = new FileMatcher();
 		this.documents = new TextDocuments();
